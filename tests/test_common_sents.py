@@ -4,11 +4,15 @@ import bengali_sbd
 
 
 def test_no_punct():
-    assert bengali_sbd.split('আমি বাংলায় গান গাই তুমি কি কর') == ['আমি বাংলায় গান গাই তুমি কি কর']
+    assert list(bengali_sbd.split('আমি বাংলায় গান গাই তুমি কি কর')) == ['আমি বাংলায় গান গাই তুমি কি কর']
 
 
 def test_terminal_punct_at_end():
-    assert bengali_sbd.split('আমি বাংলায় গান গাই।') == ['আমি বাংলায় গান গাই।']
+    assert list(bengali_sbd.split('আমি বাংলায় গান গাই।')) == ['আমি বাংলায় গান গাই।']
+
+
+def test_terminal_punct_without_space():
+    assert list(bengali_sbd.split('আমি বাংলায় গান গাই।তিনি তা জানেন।')) == ['আমি বাংলায় গান গাই।', 'তিনি তা জানেন।']
 
 
 @pytest.mark.parametrize('given,out', [
@@ -22,4 +26,4 @@ def test_terminal_punct_at_end():
     )
 ])
 def test_terminal_punct_in_text(given, out):
-    assert bengali_sbd.split(given) == out
+    assert list(bengali_sbd.split(given)) == out
